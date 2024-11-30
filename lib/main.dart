@@ -41,6 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
       pillsPerDay: 1,
       startingDay: DateTime.now(),
       endingDay: DateTime.now().add(const Duration(days: 30)),
+      type: '',
+      period: [],
     ),
     Pill(
       name: 'Omega 3',
@@ -48,6 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
       pillsPerDay: 2,
       startingDay: DateTime.now(),
       endingDay: DateTime.now().add(const Duration(days: 30)),
+      type: '',
+      period: [],
     ),
   ];
 
@@ -64,6 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
         pillsPerDay: pillsPerDay,
         startingDay: DateTime.now(),
         endingDay: DateTime.now().add(const Duration(days: 30)),
+        type: '',
+        period: [],
       );
       setState(() {
         pills.add(pill);
