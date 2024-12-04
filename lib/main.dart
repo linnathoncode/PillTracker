@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pill_tracker/objects/pills.dart';
-import 'components/bottom_sheet.dart' as custom;
+import 'package:pill_tracker/core/configs/theme/app_themes.dart';
+import 'package:pill_tracker/domain/entities/pills.dart';
+import 'presentation/widgets/bottom_sheet.dart' as custom;
 
 void main() {
   runApp(const MyApp());
@@ -15,12 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.green,
-            surface: const Color.fromARGB(255, 245, 242, 214)),
-        useMaterial3: true,
-      ),
+      theme: AppThemes.lightTheme,
+      darkTheme: AppThemes.darkTheme,
+      themeMode: ThemeMode.system,
       home: const MyHomePage(),
     );
   }
@@ -80,9 +78,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Pill Tracker"),
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).secondaryHeaderColor,
+        title: Text(
+          "Pill Tracker",
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
       body: SizedBox(
         height: double.infinity,
@@ -108,10 +109,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        foregroundColor: Theme.of(context).canvasColor,
-        backgroundColor: Colors.green,
+        foregroundColor:
+            Theme.of(context).floatingActionButtonTheme.foregroundColor,
+        backgroundColor:
+            Theme.of(context).floatingActionButtonTheme.backgroundColor,
+        shape: Theme.of(context).floatingActionButtonTheme.shape,
         onPressed: () {
           showModalBottomSheet(
+            backgroundColor: Theme.of(context).bottomSheetTheme.backgroundColor,
             context: context,
             isScrollControlled: true,
             builder: (context) {
@@ -119,7 +124,8 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           );
         },
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add,
+            size: Theme.of(context).floatingActionButtonTheme.iconSize),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

@@ -179,6 +179,7 @@ class _BottomSheetState extends State<BottomSheet> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
+              style: Theme.of(context).elevatedButtonTheme.style,
               onPressed: () {
                 widget.addPills(
                   name: nameController.text.toString(),
