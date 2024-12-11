@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/text_form_field.dart' as custom;
 
 class BottomSheet extends StatefulWidget {
   final dynamic addPills; // don't care about return type?
@@ -12,6 +13,7 @@ class _BottomSheetState extends State<BottomSheet> {
   late final TextEditingController nameController;
   late final TextEditingController numberOfPillsController;
   late final TextEditingController pillsPerDayController;
+  late final _formKey = GlobalKey<FormState>();
 
   final List<String> dropDownItems = ["Pill", "Syrup", "Other"];
   String? _dropdownValue;
@@ -89,109 +91,111 @@ class _BottomSheetState extends State<BottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // DROP DOWN BUTTON
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Type of medicine: "),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: GestureDetector(
-                    key: _dropdownKey,
-                    onTap: () => _showDropdownMenu(context),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            _dropdownValue ?? "Select",
-                            style: TextStyle(
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.fontSize,
+    return Form(
+      key: _formKey,
+      child: Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // DROP DOWN BUTTON
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Type of medicine: "),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: GestureDetector(
+                      key: _dropdownKey,
+                      onTap: () => _showDropdownMenu(context),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              _dropdownValue ?? "Select",
+                              style: TextStyle(
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.fontSize,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const Icon(
+                              Icons.arrow_drop_down,
                               color: Colors.white,
                             ),
-                          ),
-                          const Icon(
-                            Icons.arrow_drop_down,
-                            color: Colors.white,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            // TEXT FIELDS
-            Row(
-              children: [
-                const Text("Name of the pill: "),
-                Expanded(
-                  child: TextField(
-                    controller: nameController,
-                    autofocus: false,
-                    keyboardType: TextInputType.text,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                const Text("Number of pills: "),
-                Expanded(
-                  child: TextField(
-                    controller: numberOfPillsController,
-                    autofocus: false,
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                const Text("Pills per day: "),
-                Expanded(
-                  child: TextField(
-                    controller: pillsPerDayController,
-                    autofocus: false,
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              style: Theme.of(context).elevatedButtonTheme.style,
-              onPressed: () {
-                widget.addPills(
-                  name: nameController.text.toString(),
-                  numberOfPills: int.parse(numberOfPillsController.text),
-                  pillsPerDay: int.parse(pillsPerDayController.text),
-                );
-                Navigator.of(context).pop();
-              },
-              child: const Text("Save Pill"),
-            ),
-            const SizedBox(height: 16),
-          ],
+                ],
+              ),
+              // TEXT FIELDS
+              const SizedBox(
+                height: 10,
+              ),
+              custom.customTextFormField(
+                nameController,
+                false,
+                TextInputType.text,
+                "Please enter the name of the pill",
+                25,
+                "Name of the pill.",
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              custom.customTextFormField(
+                numberOfPillsController,
+                false,
+                const TextInputType.numberWithOptions(),
+                "Please enter the number of pills",
+                5,
+                "Number of pills.",
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              custom.customTextFormField(
+                pillsPerDayController,
+                false,
+                const TextInputType.numberWithOptions(),
+                "Please enter the number of pills you take per day",
+                5,
+                "Number of pills per day.",
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                style: Theme.of(context).elevatedButtonTheme.style,
+                onPressed: () {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    widget.addPills(
+                      name: nameController.text.toString(),
+                      numberOfPills: int.parse(numberOfPillsController.text),
+                      pillsPerDay: int.parse(pillsPerDayController.text),
+                    );
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: const Text("Save Pill"),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );
