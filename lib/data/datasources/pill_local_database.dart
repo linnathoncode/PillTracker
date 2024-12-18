@@ -78,17 +78,17 @@ class PillLocalDatabase {
   }
 
   Future<int> removePill(String id) async {
-    try {
-      final db = await instance.database;
+    final db = await instance.database;
 
-      return await db.delete(
-        'pills',
-        where: 'id = ?',
-        whereArgs: [id],
-      );
-    } catch (e) {
-      throw DatabaseFailure('Failed to remove pill: $e');
+    final rowsEffected = await db.delete(
+      'pills',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (rowsEffected == 0) {
+      throw DatabaseFailure('Failed to remove pill with id: $id!');
     }
+    return rowsEffected;
   }
 
   Future close() async {

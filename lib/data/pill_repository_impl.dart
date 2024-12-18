@@ -34,11 +34,8 @@ class PillRepositoryImpl implements PillRepository {
   @override
   Future<Either<Failure, List<PillEntity>>> getAllPills() async {
     try {
-      final pillsJson = await _pillLocalDatabase.getAllPills();
-      final pills = pillsJson
-          .map<PillEntity>((json) =>
-              PillModel.fromJson(json as Map<String, dynamic>).toEntity())
-          .toList();
+      final pillsModels = await _pillLocalDatabase.getAllPills();
+      final pills = pillsModels.map((model) => model.toEntity()).toList();
       return Right(pills);
     } catch (e) {
       return Left(DatabaseFailure(e.toString()));
