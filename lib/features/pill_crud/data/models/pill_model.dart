@@ -1,4 +1,4 @@
-import 'package:pill_tracker/domain/entities/pill_entity.dart';
+import 'package:pill_tracker/features/pill_crud/domain/entities/pill_entity.dart';
 
 class PillModel {
   final String name;

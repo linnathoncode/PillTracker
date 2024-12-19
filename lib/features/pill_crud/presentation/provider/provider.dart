@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:pill_tracker/data/datasources/pill_local_database.dart';
-import 'package:pill_tracker/data/pill_repository_impl.dart';
-import 'package:pill_tracker/domain/entities/pill_entity.dart';
-import 'package:pill_tracker/domain/usecases/add_pill.dart';
-import 'package:pill_tracker/domain/usecases/get_all_pills.dart';
-import 'package:pill_tracker/domain/usecases/get_pill_by_id.dart';
+
 import 'package:pill_tracker/core/errors/failure.dart';
-import 'package:pill_tracker/domain/usecases/remove_pill.dart';
+import 'package:pill_tracker/features/pill_crud/data/datasources/pill_local_database.dart';
+import 'package:pill_tracker/features/pill_crud/data/repositories/pill_repository_impl.dart';
+import 'package:pill_tracker/features/pill_crud/domain/entities/pill_entity.dart';
+import 'package:pill_tracker/features/pill_crud/domain/usecases/add_pill.dart';
+import 'package:pill_tracker/features/pill_crud/domain/usecases/get_all_pills.dart';
+import 'package:pill_tracker/features/pill_crud/domain/usecases/get_pill_by_id.dart';
+import 'package:pill_tracker/features/pill_crud/domain/usecases/remove_pill.dart';
 
 class PillProvider extends ChangeNotifier {
   PillEntity? pill;

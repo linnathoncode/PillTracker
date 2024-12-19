@@ -1,9 +1,9 @@
 import 'package:either_dart/either.dart';
 import 'package:pill_tracker/core/errors/failure.dart';
-import 'package:pill_tracker/data/datasources/pill_local_database.dart';
-import 'package:pill_tracker/data/models/pill_model.dart';
-import 'package:pill_tracker/domain/entities/pill_entity.dart';
-import 'package:pill_tracker/domain/repositories/pill_repository.dart';
+import 'package:pill_tracker/features/pill_crud/data/datasources/pill_local_database.dart';
+import 'package:pill_tracker/features/pill_crud/data/models/pill_model.dart';
+import 'package:pill_tracker/features/pill_crud/domain/entities/pill_entity.dart';
+import 'package:pill_tracker/features/pill_crud/domain/repositories/pill_repository.dart';
 
 class PillRepositoryImpl implements PillRepository {
   final PillLocalDatabase _pillLocalDatabase;

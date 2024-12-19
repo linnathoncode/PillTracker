@@ -1,5 +1,5 @@
 import 'package:pill_tracker/core/errors/failure.dart';
-import 'package:pill_tracker/data/models/pill_model.dart';
+import 'package:pill_tracker/features/pill_crud/data/models/pill_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
