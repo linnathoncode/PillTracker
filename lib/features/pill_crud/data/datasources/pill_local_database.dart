@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class PillLocalDatabase {
-  //lazy initialization no need to initialize
+  // Lazy initialization, no need to initialize explicitly
   static final PillLocalDatabase instance = PillLocalDatabase._init();
 
   static Database? _database;
@@ -29,7 +29,16 @@ class PillLocalDatabase {
     await db.execute('''
     CREATE TABLE pills (
       id TEXT PRIMARY KEY,
-      name TEXT NOT NULL
+      name TEXT NOT NULL,
+      dosagePerDose INTEGER NOT NULL,
+      dosesPerDay INTEGER NOT NULL,
+      times TEXT NOT NULL, -- JSON string to store the list of times
+      startDate TEXT NOT NULL, -- ISO8601 string for DateTime
+      endDate TEXT, -- Optional ISO8601 string for DateTime
+      notes TEXT, -- Optional notes
+      color TEXT, -- Optional color code
+      totalPills INTEGER, -- Optional stock tracking
+      lowStockThreshold INTEGER -- Optional stock threshold
     )
     ''');
   }
@@ -106,8 +115,26 @@ class PillModelFields {
   static final List<String> values = [
     id,
     name,
+    dosagePerDose,
+    dosesPerDay,
+    times,
+    startDate,
+    endDate,
+    notes,
+    color,
+    totalPills,
+    lowStockThreshold,
   ];
 
   static const String id = 'id';
   static const String name = 'name';
+  static const String dosagePerDose = 'dosagePerDose';
+  static const String dosesPerDay = 'dosesPerDay';
+  static const String times = 'times';
+  static const String startDate = 'startDate';
+  static const String endDate = 'endDate';
+  static const String notes = 'notes';
+  static const String color = 'color';
+  static const String totalPills = 'totalPills';
+  static const String lowStockThreshold = 'lowStockThreshold';
 }

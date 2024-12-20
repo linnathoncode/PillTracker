@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pill_tracker/features/pill_crud/domain/entities/pill_entity.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/provider/provider.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/widgets/custom_checkbox_list_tile_widget.dart';
 import 'package:provider/provider.dart';
 import './custom_text_form_field_widget.dart' as custom;
 
@@ -12,10 +13,27 @@ class BottomSheet extends StatefulWidget {
 }
 
 class _BottomSheetState extends State<BottomSheet> {
+  //   String id;
+  // String name;
+  // int dosagePerDose; // Number of pills per dose
+  // int dosesPerDay; // Number of doses per day
+  // List<String>
+  //     times; // Times of day to take the pill (e.g., "8:00 AM", "2:00 PM")
+  // DateTime startDate; // When the user started taking the pill
+  // DateTime? endDate; // Optional: When the user stops taking the pill
+  // String? notes; // Optional: Extra instructions
+  // String? color; // Optional: Color coding for the pill
+  // int? totalPills; // Optional: Total number of pills in stock
+  // int? lowStockThreshold; // Optional: Stock threshold for warnings
   late final TextEditingController nameController;
-  late final TextEditingController numberOfPillsController;
-  late final TextEditingController pillsPerDayController;
+  late final TextEditingController dosagePerDoseController;
+  late final TextEditingController dosagePerDayController;
+  late final TextEditingController startDateController;
   late final _formKey = GlobalKey<FormState>();
+  late bool isMorning;
+  late bool isNoon;
+  late bool isAfternoon;
+  late bool isEvening;
 
   final List<String> dropDownItems = ["Pill", "Syrup", "Other"];
   String? _dropdownValue;
@@ -25,16 +43,23 @@ class _BottomSheetState extends State<BottomSheet> {
   void initState() {
     super.initState();
     nameController = TextEditingController();
-    numberOfPillsController = TextEditingController();
-    pillsPerDayController = TextEditingController();
+    dosagePerDoseController = TextEditingController();
+    dosagePerDayController = TextEditingController();
+    startDateController = TextEditingController();
+    isMorning = false;
+    isNoon = false;
+    isAfternoon = false;
+    isEvening = false;
     _dropdownValue = dropDownItems.first; // Default selection
   }
 
   @override
   void dispose() {
     nameController.dispose();
-    numberOfPillsController.dispose();
-    pillsPerDayController.dispose();
+    dosagePerDoseController.dispose();
+    dosagePerDayController.dispose();
+    startDateController.dispose();
+
     super.dispose();
   }
 
@@ -64,7 +89,13 @@ class _BottomSheetState extends State<BottomSheet> {
       }
 
       // Create a new pill and add it
-      final pill = PillEntity(name: nameController.text, id: lastPillId);
+      final pill = PillEntity(
+          name: nameController.text,
+          id: lastPillId,
+          dosagePerDose: 1,
+          dosesPerDay: 1,
+          times: [],
+          startDate: DateTime.now());
       await pillProvider.addPill(pill);
 
       if (pillProvider.failure != null) {
@@ -193,10 +224,68 @@ class _BottomSheetState extends State<BottomSheet> {
                 TextInputType.text,
                 "Please enter the name of the pill",
                 25,
-                "Name of the pill.",
+                "e.g. Aspririn.",
+                false,
               ),
               const SizedBox(
                 height: 10,
+              ),
+              custom.customTextFormField(
+                dosagePerDoseController,
+                false,
+                TextInputType.number,
+                "Number of dosage per dpose",
+                25,
+                "e.g. 2",
+                true,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+
+              SizedBox(
+                child: Wrap(
+                  spacing: 8.0, // Optional: Add spacing between items
+                  runSpacing: 4.0, // Optional: Add spacing between rows
+                  children: [
+                    CustomCheckboxListTile(
+                      title: "Morning",
+                      value: isMorning,
+                      onChanged: (value) {
+                        setState(() {
+                          isMorning = !isMorning;
+                        });
+                      },
+                    ),
+                    CustomCheckboxListTile(
+                      title: "Noon",
+                      value: isNoon,
+                      onChanged: (value) {
+                        setState(() {
+                          isNoon = !isNoon;
+                        });
+                      },
+                    ),
+                    CustomCheckboxListTile(
+                      title: "Afternoon",
+                      value: isAfternoon,
+                      onChanged: (value) {
+                        setState(() {
+                          isAfternoon = !isAfternoon;
+                        });
+                      },
+                    ),
+                    CustomCheckboxListTile(
+                      title: "Evening",
+                      value: isEvening,
+                      onChanged: (value) {
+                        setState(() {
+                          isEvening = !isEvening;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
 
               const SizedBox(height: 16),
