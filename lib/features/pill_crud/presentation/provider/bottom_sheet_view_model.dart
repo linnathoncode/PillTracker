@@ -96,7 +96,9 @@ class BottomSheetViewModel extends ChangeNotifier {
     if (pillProvider.failure != null) {
       debugPrint("Error: ${pillProvider.failure!.errorMessage}");
     } else {
-      Navigator.pop(context); // Close the bottom sheet
+      if (context.mounted) {
+        Navigator.pop(context); // Close the bottom sheet
+      }
     }
   }
 }
