@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/provider/bottom_sheet_view_model.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/provider/provider.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/widgets/bottom_sheet_widget.dart';
 import 'package:provider/provider.dart';
-import '../widgets/bottom_sheet_widget.dart' as custom;
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -76,11 +77,14 @@ class _MainPageState extends State<MainPage> {
         shape: Theme.of(context).floatingActionButtonTheme.shape,
         onPressed: () {
           showModalBottomSheet(
-            backgroundColor: Theme.of(context).bottomSheetTheme.backgroundColor,
             context: context,
+            backgroundColor: Theme.of(context).bottomSheetTheme.backgroundColor,
             isScrollControlled: true,
-            builder: (context) {
-              return const custom.BottomSheet();
+            builder: (_) {
+              return ChangeNotifierProvider(
+                create: (_) => BottomSheetViewModel(),
+                child: const BottomSheetWidget(),
+              );
             },
           );
         },

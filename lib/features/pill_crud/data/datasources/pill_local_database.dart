@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:pill_tracker/core/errors/failure.dart';
 import 'package:pill_tracker/features/pill_crud/data/models/pill_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -82,6 +83,7 @@ class PillLocalDatabase {
 
       return await db.insert('pills', pill.toJson());
     } catch (e) {
+      debugPrint(e.toString());
       throw DatabaseFailure('Failed to add pill: ${e.toString()}');
     }
   }
