@@ -5,7 +5,7 @@ class PillModel {
   final String id;
   final int dosagePerDose; // Number of pills per dose
   final int dosesPerDay; // Number of doses per day
-  final List<String> times; // Times of day to take the pill
+  final String times; // Times of day to take the pill
   final DateTime startDate; // When the user started taking the pill
   final DateTime? endDate; // Optional: When the user stops taking the pill
   final String? notes; // Optional: Extra instructions
@@ -33,7 +33,7 @@ class PillModel {
       id: json['id'],
       dosagePerDose: json['dosagePerDose'],
       dosesPerDay: json['dosesPerDay'],
-      times: List<String>.from(json['times']),
+      times: json['times'],
       startDate: DateTime.parse(json['startDate']),
       endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
       notes: json['notes'],
@@ -65,7 +65,7 @@ class PillModel {
       id: entity.id,
       dosagePerDose: entity.dosagePerDose,
       dosesPerDay: entity.dosesPerDay,
-      times: entity.times,
+      times: _serializeTimes(entity.times),
       startDate: entity.startDate,
       endDate: entity.endDate,
       notes: entity.notes,
@@ -81,7 +81,7 @@ class PillModel {
       id: id,
       dosagePerDose: dosagePerDose,
       dosesPerDay: dosesPerDay,
-      times: times,
+      times: _deserializeTimes(times),
       startDate: startDate,
       endDate: endDate,
       notes: notes,
@@ -89,5 +89,13 @@ class PillModel {
       totalPills: totalPills,
       lowStockThreshold: lowStockThreshold,
     );
+  }
+
+  static String _serializeTimes(List<String> times) {
+    return times.isNotEmpty ? times.join(',') : '';
+  }
+
+  static List<String> _deserializeTimes(String times) {
+    return times.isNotEmpty ? times.split(',') : [];
   }
 }

@@ -44,7 +44,6 @@ class _BottomSheetState extends State<BottomSheet> {
     super.initState();
     nameController = TextEditingController();
     dosagePerDoseController = TextEditingController();
-    dosagePerDayController = TextEditingController();
     startDateController = TextEditingController();
     isMorning = false;
     isNoon = false;
@@ -57,7 +56,6 @@ class _BottomSheetState extends State<BottomSheet> {
   void dispose() {
     nameController.dispose();
     dosagePerDoseController.dispose();
-    dosagePerDayController.dispose();
     startDateController.dispose();
 
     super.dispose();
@@ -76,6 +74,12 @@ class _BottomSheetState extends State<BottomSheet> {
         return;
       }
 
+      // Add times based on the selected checkboxes
+      List<String> times = [];
+      if (isMorning) times.add("Morning");
+      if (isNoon) times.add("Noon");
+      if (isAfternoon) times.add("Afternoon");
+      if (isEvening) times.add("Evening");
       // Calculate the next pill ID
       String lastPillId = '0';
       if (pillProvider.pills != null && pillProvider.pills!.isNotEmpty) {
@@ -92,15 +96,16 @@ class _BottomSheetState extends State<BottomSheet> {
       final pill = PillEntity(
           name: nameController.text,
           id: lastPillId,
-          dosagePerDose: 1,
-          dosesPerDay: 1,
-          times: [],
+          dosagePerDose: int.parse(dosagePerDoseController.text),
+          dosesPerDay: times.length,
+          times: times,
           startDate: DateTime.now());
       await pillProvider.addPill(pill);
 
       if (pillProvider.failure != null) {
         print("Error adding pill: ${pillProvider.failure!.errorMessage}");
       } else {
+        print(pill);
         Navigator.pop(context);
       }
     }
@@ -245,8 +250,8 @@ class _BottomSheetState extends State<BottomSheet> {
 
               SizedBox(
                 child: Wrap(
-                  spacing: 8.0, // Optional: Add spacing between items
-                  runSpacing: 4.0, // Optional: Add spacing between rows
+                  spacing: 4.0, // Optional: Add spacing between items
+                  runSpacing: 0.0, // Optional: Add spacing between rows
                   children: [
                     CustomCheckboxListTile(
                       title: "Morning",
