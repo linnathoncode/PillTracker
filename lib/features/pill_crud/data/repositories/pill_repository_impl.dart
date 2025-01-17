@@ -17,7 +17,11 @@ class PillRepositoryImpl implements PillRepository {
       await _pillLocalDatabase.addPill(pillModel);
       return Right(pill);
     } catch (e) {
-      return Left(DatabaseFailure(e.toString()));
+      return Left(
+        DatabaseFailure(
+          e is DatabaseFailure ? e.errorMessage : e.toString(),
+        ),
+      );
     }
   }
 
@@ -27,7 +31,11 @@ class PillRepositoryImpl implements PillRepository {
       await _pillLocalDatabase.removePill(id);
       return const Right(null);
     } catch (e) {
-      return Left(DatabaseFailure(e.toString()));
+      return Left(
+        DatabaseFailure(
+          e is DatabaseFailure ? e.errorMessage : e.toString(),
+        ),
+      );
     }
   }
 
@@ -36,10 +44,13 @@ class PillRepositoryImpl implements PillRepository {
     try {
       final pillsModels = await _pillLocalDatabase.getAllPills();
       final pills = pillsModels.map((model) => model.toEntity()).toList();
-      print(pills);
       return Right(pills);
     } catch (e) {
-      return Left(DatabaseFailure(e.toString()));
+      return Left(
+        DatabaseFailure(
+          e is DatabaseFailure ? e.errorMessage : e.toString(),
+        ),
+      );
     }
   }
 
@@ -55,7 +66,11 @@ class PillRepositoryImpl implements PillRepository {
       }
       return Left(DatabaseFailure('Pill not found'));
     } catch (e) {
-      return Left(DatabaseFailure(e.toString()));
+      return Left(
+        DatabaseFailure(
+          e is DatabaseFailure ? e.errorMessage : e.toString(),
+        ),
+      );
     }
   }
 }
