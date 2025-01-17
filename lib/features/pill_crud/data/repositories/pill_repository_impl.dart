@@ -22,7 +22,7 @@ class PillRepositoryImpl implements PillRepository {
   }
 
   @override
-  Future<Either<Failure, void>> removePill(String id) async {
+  Future<Either<Failure, void>> removePill(int id) async {
     try {
       await _pillLocalDatabase.removePill(id);
       return const Right(null);
@@ -36,6 +36,7 @@ class PillRepositoryImpl implements PillRepository {
     try {
       final pillsModels = await _pillLocalDatabase.getAllPills();
       final pills = pillsModels.map((model) => model.toEntity()).toList();
+      print(pills);
       return Right(pills);
     } catch (e) {
       return Left(DatabaseFailure(e.toString()));

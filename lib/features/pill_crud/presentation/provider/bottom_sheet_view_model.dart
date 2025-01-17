@@ -82,7 +82,7 @@ class BottomSheetViewModel extends ChangeNotifier {
 
     // Create a new pill entity
     final pill = PillEntity(
-      id: (pillCount + 1).toString(),
+      id: null,
       name: nameController.text,
       dosagePerDose: int.parse(dosagePerDoseController.text),
       dosesPerDay: selectedTimes.length,

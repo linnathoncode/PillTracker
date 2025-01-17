@@ -1,5 +1,5 @@
 class PillEntity {
-  String id;
+  int? id;
   String name;
   int dosagePerDose; // Number of pills per dose
   int dosesPerDay; // Number of doses per day
@@ -13,12 +13,12 @@ class PillEntity {
   int? lowStockThreshold; // Optional: Stock threshold for warnings
 
   PillEntity({
-    required this.id,
     required this.name,
     required this.dosagePerDose,
     required this.dosesPerDay,
     required this.times,
     required this.startDate,
+    this.id,
     this.endDate,
     this.notes,
     this.color,

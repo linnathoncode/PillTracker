@@ -2,7 +2,7 @@ import 'package:pill_tracker/features/pill_crud/domain/entities/pill_entity.dart
 
 class PillModel {
   final String name;
-  final String id;
+  final int? id;
   final int dosagePerDose; // Number of pills per dose
   final int dosesPerDay; // Number of doses per day
   final String times; // Times of day to take the pill

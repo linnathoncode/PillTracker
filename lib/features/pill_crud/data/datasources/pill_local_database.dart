@@ -29,7 +29,7 @@ class PillLocalDatabase {
   Future _createDB(Database db, int version) async {
     await db.execute('''
     CREATE TABLE pills (
-      id TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       dosagePerDose INTEGER NOT NULL,
       dosesPerDay INTEGER NOT NULL,
@@ -70,7 +70,6 @@ class PillLocalDatabase {
       final db = await instance.database;
 
       final result = await db.query('pills');
-
       return result.map((json) => PillModel.fromJson(json)).toList();
     } catch (e) {
       throw DatabaseFailure('Failed to get all pills: $e');
@@ -88,7 +87,7 @@ class PillLocalDatabase {
     }
   }
 
-  Future<int> removePill(String id) async {
+  Future<int> removePill(int id) async {
     final db = await instance.database;
 
     final rowsEffected = await db.delete(

@@ -13,6 +13,7 @@ class PillProvider extends ChangeNotifier {
   PillEntity? pill;
   List<PillEntity>? pills;
   Failure? failure;
+  List<int> selectedIndices = [];
 
   PillProvider({
     this.pill,
@@ -87,7 +88,7 @@ class PillProvider extends ChangeNotifier {
 
   // BUG - DOES NOT RETURN FAILURES
   // Method to remove a pill using its id
-  Future<void> removePill(String id) async {
+  Future<void> removePill(int id) async {
     final pillRepository = PillRepositoryImpl(
         PillLocalDatabase.instance); // Initialize the repository
     final removePillUseCase = RemovePill(pillRepository);
@@ -107,5 +108,21 @@ class PillProvider extends ChangeNotifier {
         notifyListeners();
       },
     );
+  }
+
+  // Method to toggle selection
+  void toggleSelection(int index) {
+    if (selectedIndices.contains(index)) {
+      selectedIndices.remove(index);
+    } else {
+      selectedIndices.add(index);
+    }
+    notifyListeners();
+  }
+
+  // Method to clear selections
+  void clearSelections() {
+    selectedIndices.clear();
+    notifyListeners();
   }
 }
