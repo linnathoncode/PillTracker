@@ -6,11 +6,11 @@ import 'package:pill_tracker/features/pill_crud/presentation/provider/provider.d
 class BottomSheetViewModel extends ChangeNotifier {
   // Form state and controllers
   final nameKey = GlobalKey<FormState>();
-  final dosageKey = GlobalKey<FormState>();
+  final totalPillsKey = GlobalKey<FormState>();
   final formKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();
-  final dosagePerDoseController = TextEditingController();
+  final totalPillsController = TextEditingController();
 
   // Dropdown state
   List<String> dropDownItems = ["Pill", "Syrup", "Other"];
@@ -23,6 +23,40 @@ class BottomSheetViewModel extends ChangeNotifier {
     "Afternoon": false,
     "Evening": false,
   };
+
+  Map<String, int> counters = {
+    "Morning": 0,
+    "Noon": 0,
+    "Afternoon": 0,
+    "Evening": 0,
+  };
+
+  //checkboxlist
+
+  // Update checkbox state
+  void toggleCheckbox(String key, bool isChecked) {
+    if (timeOptions.containsKey(key)) {
+      timeOptions[key] = isChecked;
+      counters[key] = 0;
+      notifyListeners();
+    }
+  }
+
+  // Increment counter
+  void incrementCounter(String key) {
+    if (counters.containsKey(key)) {
+      counters[key] = counters[key]! + 1;
+      notifyListeners();
+    }
+  }
+
+  // Decrement counter
+  void decrementCounter(String key) {
+    if (counters.containsKey(key) && counters[key]! > 0) {
+      counters[key] = counters[key]! - 1;
+      notifyListeners();
+    }
+  }
 
   BottomSheetViewModel() {
     selectedDropdownValue = dropDownItems.first;
@@ -40,7 +74,7 @@ class BottomSheetViewModel extends ChangeNotifier {
   }
 
   // Validator for Dosage
-  String? validateDosage(String? value) {
+  String? validateTotalPills(String? value) {
     if (value == null || value.trim().isEmpty) {
       return "Please enter a dosage.";
     }
@@ -56,10 +90,14 @@ class BottomSheetViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Checkbox logic
-  void updateTimeOption(String key) {
-    timeOptions[key] = !timeOptions[key]!;
-    notifyListeners();
+  void updateTimeOption(Map<String, dynamic> updatedOption) {
+    final key = updatedOption.keys.first;
+    if (timeOptions.containsKey(key)) {
+      timeOptions[key] = updatedOption[key]['isChecked'] ?? false;
+      notifyListeners();
+    } else {
+      throw ArgumentError('Key "$key" does not exist in timeOptions.');
+    }
   }
 
   // Save Pill logic
@@ -81,12 +119,14 @@ class BottomSheetViewModel extends ChangeNotifier {
         .toList();
 
     // Create a new pill entity
+    // fix the dosageperdose in the database by storing it as a map
     final pill = PillEntity(
       id: null,
       name: nameController.text,
-      dosagePerDose: int.parse(dosagePerDoseController.text),
+      dosagePerDose: 1,
       dosesPerDay: selectedTimes.length,
       times: selectedTimes,
+      totalPills: int.parse(totalPillsController.text),
       startDate: DateTime.now(),
     );
 

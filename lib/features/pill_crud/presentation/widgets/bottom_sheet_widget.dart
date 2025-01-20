@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/provider/bottom_sheet_view_model.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/widgets/custom_checkboxlist_widget.dart';
-import 'package:pill_tracker/features/pill_crud/presentation/widgets/custom_dropdown_menu_widget.dart';
 import 'package:provider/provider.dart';
 import 'custom_text_form_field_widget.dart';
 
@@ -23,11 +22,11 @@ class BottomSheetWidget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CustomDropdownMenu(
-                items: viewModel.dropDownItems,
-                selectedValue: viewModel.selectedDropdownValue,
-                onValueChanged: viewModel.updateDropdownValue,
-              ),
+              // CustomDropdownMenu(
+              //   items: viewModel.dropDownItems,
+              //   selectedValue: viewModel.selectedDropdownValue,
+              //   onValueChanged: viewModel.updateDropdownValue,
+              // ),
               const SizedBox(height: 10),
               CustomTextFormField(
                 controller: viewModel.nameController,
@@ -43,22 +42,19 @@ class BottomSheetWidget extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               CustomTextFormField(
-                controller: viewModel.dosagePerDoseController,
-                label: "Dosage Per Dose",
+                controller: viewModel.totalPillsController,
+                label: "Number of pills left",
                 maxLength: 25,
                 hintText: "e.g., 2",
-                errorMessage: "Please enter a valid dose",
+                errorMessage: "Please enter a number",
                 keyboardType: TextInputType.number,
                 isNumeric: true,
                 hasAutofocus: false,
-                formKey: viewModel.dosageKey,
-                validator: viewModel.validateDosage,
+                formKey: viewModel.totalPillsKey,
+                validator: viewModel.validateTotalPills,
               ),
               const SizedBox(height: 10),
-              CustomCheckboxList(
-                options: viewModel.timeOptions,
-                onChanged: viewModel.updateTimeOption,
-              ),
+              const CustomCheckboxList(),
               const SizedBox(height: 16),
               ElevatedButton(
                 style: Theme.of(context).elevatedButtonTheme.style,

@@ -44,7 +44,7 @@ class PillLocalDatabase {
     ''');
   }
 
-  Future<PillModel?> getPillById(String id) async {
+  Future<PillModel?> getPillById(int id) async {
     try {
       final db = await instance.database;
 

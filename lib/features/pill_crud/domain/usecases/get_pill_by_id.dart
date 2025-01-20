@@ -8,7 +8,7 @@ class GetPillById {
 
   GetPillById(this.repository);
 
-  Future<Either<Failure, PillEntity>> call(String id) async {
+  Future<Either<Failure, PillEntity>> call(int id) async {
     return await repository.getPillById(id);
   }
 }

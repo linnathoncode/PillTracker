@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pill_tracker/core/configs/constants/routes.dart';
 import 'package:pill_tracker/core/configs/theme/app_themes.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/pages/main_page.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/pages/pill_info_page.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/pages/splash_page.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/provider/provider.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         routes: {
           mainPageRoute: (context) => const MainPage(),
+          pillInfoPageRoute: (context) => const PillInfoPage(),
         },
         debugShowCheckedModeBanner: false,
         theme: AppThemes.lightTheme,

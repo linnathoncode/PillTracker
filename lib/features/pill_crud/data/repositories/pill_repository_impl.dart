@@ -55,7 +55,7 @@ class PillRepositoryImpl implements PillRepository {
   }
 
   @override
-  Future<Either<Failure, PillEntity>> getPillById(String id) async {
+  Future<Either<Failure, PillEntity>> getPillById(int id) async {
     try {
       // Directly get the PillModel (no need to cast from Map)
       final pill = await _pillLocalDatabase.getPillById(id);

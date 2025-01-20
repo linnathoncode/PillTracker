@@ -42,10 +42,10 @@ Widget buildPillListTile(BuildContext context, int index,
     tileColor: isSelected ? Colors.blue[100] : null,
     leading: const Icon(Icons.medication),
     onLongPress: () {
-      pillProvider.toggleSelection(index);
+      pillProvider.onLongPressFunction(index);
     },
     onTap: () {
-      isSelected ? pillProvider.toggleSelection(index) : null;
+      pillProvider.onTapFunction(context, index);
     },
     title: Text(pills[index].name),
   );

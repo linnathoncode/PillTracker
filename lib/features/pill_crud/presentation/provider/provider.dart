@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pill_tracker/core/configs/constants/routes.dart';
 
 import 'package:pill_tracker/core/errors/failure.dart';
 import 'package:pill_tracker/features/pill_crud/data/datasources/pill_local_database.dart';
@@ -43,7 +44,7 @@ class PillProvider extends ChangeNotifier {
   }
 
   /// Method to fetch a pill by its ID
-  Future<void> getPillById(String id) async {
+  Future<void> getPillById(int id) async {
     final pillRepository = PillRepositoryImpl(
         PillLocalDatabase.instance); // Initialize the repository
     final getPillByIdUseCase = GetPillById(pillRepository);
@@ -111,13 +112,21 @@ class PillProvider extends ChangeNotifier {
   }
 
   // Method to toggle selection
-  void toggleSelection(int index) {
+  void onLongPressFunction(int index) {
     if (selectedIndices.contains(index)) {
       selectedIndices.remove(index);
     } else {
       selectedIndices.add(index);
     }
     notifyListeners();
+  }
+
+  void onTapFunction(BuildContext context, int index) {
+    Navigator.pushNamed(
+      context,
+      pillInfoPageRoute,
+      arguments: pills![index].id,
+    );
   }
 
   // Method to clear selections
