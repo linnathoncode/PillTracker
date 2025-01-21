@@ -48,7 +48,8 @@ class _MainPageState extends State<MainPage> {
                         return Center(
                           child: pillProvider.failure == null
                               ? const Text('No pills available')
-                              : const Text('Failed to get pills'),
+                              : Text(
+                                  'Failed to get pills ${pillProvider.failure!.errorMessage}'),
                         );
                       } else {
                         return ListView.builder(

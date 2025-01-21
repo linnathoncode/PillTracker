@@ -121,14 +121,23 @@ class BottomSheetViewModel extends ChangeNotifier {
     // Create a new pill entity
     // fix the dosageperdose in the database by storing it as a map
     final pill = PillEntity(
-      id: null,
       name: nameController.text,
-      dosagePerDose: 1,
-      dosesPerDay: selectedTimes.length,
-      times: selectedTimes,
-      totalPills: int.parse(totalPillsController.text),
+      dosagePerDose: counters,
       startDate: DateTime.now(),
+      totalPills: int.parse(totalPillsController.text),
+      id: null,
+      notes: null,
+      color: null,
     );
+    print("PILL ENTITIY ${pill}");
+    print("Pill Entity Details:");
+    print("Name: ${pill.name}");
+    print("Dosage Per Dose: ${pill.dosagePerDose}");
+    print("Start Date: ${pill.startDate}");
+    print("Total Pills: ${pill.totalPills}");
+    print("ID: ${pill.id}");
+    print("Notes: ${pill.notes}");
+    print("Color: ${pill.color}");
 
     // Save the pill via the provider
     await pillProvider.addPill(pill);

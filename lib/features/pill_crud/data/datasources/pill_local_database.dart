@@ -31,17 +31,14 @@ class PillLocalDatabase {
     CREATE TABLE pills (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      dosagePerDose INTEGER NOT NULL,
-      dosesPerDay INTEGER NOT NULL,
-      times TEXT NOT NULL, -- JSON string to store the list of times
-      startDate TEXT NOT NULL, -- ISO8601 string for DateTime
-      endDate TEXT, -- Optional ISO8601 string for DateTime
+      dosagePerDose TEXT NOT NULL, -- JSON string to store the map of dosages
+      startDate TEXT DEFAULT (CURRENT_TIMESTAMP), -- Defaults to the current date and time
+      endDate TEXT, -- Optional end date
       notes TEXT, -- Optional notes
       color TEXT, -- Optional color code
-      totalPills INTEGER, -- Optional stock tracking
-      lowStockThreshold INTEGER -- Optional stock threshold
+      totalPills INTEGER NOT NULL -- Total pills (mandatory)
     )
-    ''');
+  ''');
   }
 
   Future<PillModel?> getPillById(int id) async {
@@ -117,25 +114,21 @@ class PillModelFields {
     id,
     name,
     dosagePerDose,
-    dosesPerDay,
-    times,
     startDate,
-    endDate,
     notes,
     color,
     totalPills,
-    lowStockThreshold,
+    endDate,
   ];
 
   static const String id = 'id';
   static const String name = 'name';
-  static const String dosagePerDose = 'dosagePerDose';
-  static const String dosesPerDay = 'dosesPerDay';
-  static const String times = 'times';
-  static const String startDate = 'startDate';
+  static const String dosagePerDose =
+      'dosagePerDose'; // JSON string for dosage map
+  static const String startDate =
+      'startDate'; // Defaults to current timestamp if not provided
+  static const String notes = 'notes'; // Optional notes
+  static const String color = 'color'; // Optional color code
+  static const String totalPills = 'totalPills'; // Mandatory field
   static const String endDate = 'endDate';
-  static const String notes = 'notes';
-  static const String color = 'color';
-  static const String totalPills = 'totalPills';
-  static const String lowStockThreshold = 'lowStockThreshold';
 }

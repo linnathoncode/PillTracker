@@ -62,7 +62,7 @@ class _PillInfoPageState extends State<PillInfoPage> {
                     children: [
                       Text(pill!.startDate.toString()),
                       Text(pill!.endDate.toString()),
-                      Text(pill!.times.toString()),
+                      Text(pill!.dosagePerDose.toString()),
                       Text(pill!.notes.toString()),
                     ],
                   )), // Replace with actual UI
