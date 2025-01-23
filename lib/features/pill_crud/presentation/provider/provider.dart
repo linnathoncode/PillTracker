@@ -134,4 +134,9 @@ class PillProvider extends ChangeNotifier {
     selectedIndices.clear();
     notifyListeners();
   }
+
+  // Seperate date from time
+  String formatDate(DateTime date) {
+    return '${date.day}/${date.month}/${date.year}';
+  }
 }

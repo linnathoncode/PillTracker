@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pill_tracker/features/pill_crud/presentation/provider/bottom_sheet_view_model.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/pages/main_page/view_models/bottom_sheet_view_model.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/provider/provider.dart';
-import 'package:pill_tracker/features/pill_crud/presentation/widgets/bottom_sheet_widget.dart';
-import 'package:pill_tracker/features/pill_crud/presentation/widgets/pill_list_tile_widget.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/pages/main_page/widgets/bottom_sheet_widget.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/pages/main_page/widgets/compact_pill_tile.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
@@ -57,12 +57,11 @@ class _MainPageState extends State<MainPage> {
                           itemBuilder: (context, index) {
                             final isSelected =
                                 pillProvider.selectedIndices.contains(index);
-                            return buildPillListTile(
-                              context,
-                              index,
-                              pills,
-                              isSelected,
-                              pillProvider,
+                            return CompactPillTile(
+                              pill: pills[index],
+                              onTapFunction: () => pillProvider.onTapFunction(context, index),
+                              onLongPressFunction: () => pillProvider.onLongPressFunction(index),
+
                             );
                           },
                         );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pill_tracker/features/pill_crud/presentation/provider/bottom_sheet_view_model.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/pages/main_page/view_models/bottom_sheet_view_model.dart';
 import 'package:provider/provider.dart';
 
 class CustomCheckboxList extends StatelessWidget {

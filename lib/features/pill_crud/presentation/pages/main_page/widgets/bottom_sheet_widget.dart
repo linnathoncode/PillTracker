@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pill_tracker/features/pill_crud/presentation/provider/bottom_sheet_view_model.dart';
-import 'package:pill_tracker/features/pill_crud/presentation/widgets/custom_checkboxlist_widget.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/pages/main_page/view_models/bottom_sheet_view_model.dart';
+import 'package:pill_tracker/features/pill_crud/presentation/pages/main_page/widgets/custom_checkboxlist_widget.dart';
 import 'package:provider/provider.dart';
-import 'custom_text_form_field_widget.dart';
+import '../../../widgets/custom_text_form_field_widget.dart';
 
 class BottomSheetWidget extends StatelessWidget {
   const BottomSheetWidget({super.key});
