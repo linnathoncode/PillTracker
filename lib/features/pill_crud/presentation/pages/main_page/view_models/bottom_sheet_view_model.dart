@@ -129,15 +129,15 @@ class BottomSheetViewModel extends ChangeNotifier {
       notes: null,
       color: null,
     );
-    print("PILL ENTITIY ${pill}");
-    print("Pill Entity Details:");
-    print("Name: ${pill.name}");
-    print("Dosage Per Dose: ${pill.dosagePerDose}");
-    print("Start Date: ${pill.startDate}");
-    print("Total Pills: ${pill.totalPills}");
-    print("ID: ${pill.id}");
-    print("Notes: ${pill.notes}");
-    print("Color: ${pill.color}");
+    // print("PILL ENTITIY $pill");
+    // print("Pill Entity Details:");
+    // print("Name: ${pill.name}");
+    // print("Dosage Per Dose: ${pill.dosagePerDose}");
+    // print("Start Date: ${pill.startDate}");
+    // print("Total Pills: ${pill.totalPills}");
+    // print("ID: ${pill.id}");
+    // print("Notes: ${pill.notes}");
+    // print("Color: ${pill.color}");
 
     // Save the pill via the provider
     await pillProvider.addPill(pill);

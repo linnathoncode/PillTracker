@@ -118,10 +118,16 @@ class PillProvider extends ChangeNotifier {
     } else {
       selectedIndices.add(index);
     }
+    // print(selectedIndices);
     notifyListeners();
   }
 
   void onTapFunction(BuildContext context, int index) {
+    if (selectedIndices.contains(index)) {
+      selectedIndices.remove(index);
+      notifyListeners();
+      return;
+    }
     Navigator.pushNamed(
       context,
       pillInfoPageRoute,

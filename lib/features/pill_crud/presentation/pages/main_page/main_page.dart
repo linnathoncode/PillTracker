@@ -59,9 +59,11 @@ class _MainPageState extends State<MainPage> {
                                 pillProvider.selectedIndices.contains(index);
                             return CompactPillTile(
                               pill: pills[index],
-                              onTapFunction: () => pillProvider.onTapFunction(context, index),
-                              onLongPressFunction: () => pillProvider.onLongPressFunction(index),
-
+                              onTapFunction: () =>
+                                  pillProvider.onTapFunction(context, index),
+                              onLongPressFunction: () =>
+                                  pillProvider.onLongPressFunction(index),
+                              index: index,
                             );
                           },
                         );
