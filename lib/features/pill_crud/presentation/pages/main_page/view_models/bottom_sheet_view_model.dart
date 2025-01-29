@@ -113,10 +113,10 @@ class BottomSheetViewModel extends ChangeNotifier {
     debugPrint(pillCount.toString());
 
     // Get selected times
-    List<String> selectedTimes = timeOptions.entries
-        .where((entry) => entry.value)
-        .map((entry) => entry.key)
-        .toList();
+    // List<String> selectedTimes = timeOptions.entries
+    //     .where((entry) => entry.value)
+    //     .map((entry) => entry.key)
+    //     .toList();
 
     // Create a new pill entity
     // fix the dosageperdose in the database by storing it as a map

@@ -7,3 +7,7 @@ class Failure {
 class DatabaseFailure extends Failure {
   DatabaseFailure(super.errorMessage);
 }
+
+class NotificationFailure extends Failure {
+  NotificationFailure(super.errorMessage);
+}

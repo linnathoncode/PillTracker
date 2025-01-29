@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pill_tracker/features/notification/presentation/provider/notification_provider.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/pages/main_page/view_models/bottom_sheet_view_model.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/provider/provider.dart';
 import 'package:pill_tracker/features/pill_crud/presentation/pages/main_page/widgets/bottom_sheet_widget.dart';
@@ -55,8 +56,8 @@ class _MainPageState extends State<MainPage> {
                         return ListView.builder(
                           itemCount: pills.length,
                           itemBuilder: (context, index) {
-                            final isSelected =
-                                pillProvider.selectedIndices.contains(index);
+                            // final isSelected =
+                            //     pillProvider.selectedIndices.contains(index);
                             return CompactPillTile(
                               pill: pills[index],
                               onTapFunction: () =>
@@ -72,6 +73,19 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final notificationProvider = NotificationProvider();
+                  notificationProvider.showNotification(0, 'Title', 'body');
+                  if (notificationProvider.failure != null) {
+                    print(notificationProvider.failure!.errorMessage);
+                  }
+                },
+                child: const Text("Show Notification"),
+              )
             ],
           ),
         ),
